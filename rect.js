@@ -80,7 +80,7 @@ class Rect {
           break;
       }
   }
-  drawOnMap() {
+  draw() {
     if (this.mouse.isPressed) {
       this.resize();
       this.move();
@@ -97,8 +97,8 @@ class Rect {
   }
 
   constructor(x, y, mapC, mouse) {
-    this.width = 200;
-    this.height = 200;
+    this.width = 100;
+    this.height = 100;
     // x, y is the top left corner
     this.x = x;
     this.y = y;
@@ -109,5 +109,10 @@ class Rect {
     this.clickedCorner = 'none';
     this.mapC = mapC;
     this.mouse = mouse;
+    // editting or setting
+    this.mode = 'editting';
+
+
+    
   }
 }

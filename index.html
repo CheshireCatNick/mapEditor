@@ -6,10 +6,32 @@
   <script src="./basic.js"></script>
   <script src="./mouse.js"></script>
   <script src="./rect.js"></script>
+  <style>
+    #mapDisplay {
+      float: left;
+      border: 1px solid #000000;
 
+    }
+    #controlPanel {
+      border: 1px solid #000000;
+
+    }
+    #map {
+
+    }
+
+  </style>
 </head>
 <body>
-  <canvas id="map" width="1600" height="900" style="border: 1px solid #000000;"></canvas>
+  <div id="mapDisplay">
+    <canvas id="map" width="1000" height="600"></canvas>
+  </div>
+  <div id="controlPanel">control panel
+  <button type="button" onclick="addRect()">add rect</button>
+
+
+
+  </div>
 
 
   <script src="./map.js"></script>
