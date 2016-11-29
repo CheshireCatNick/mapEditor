@@ -13,8 +13,6 @@ let rect1 = new Rect(200, 100, mapC, mouse);
 let rect2 = new Rect(800, 400, mapC, mouse);
 
 const mapLoop = setInterval(() => {
-  //mapC.clearRect(0, 0, 1000, 1000);
-
   mapC.fillStyle = 'white';
   mapC.fillRect(0, 0, 1600, 900);
   rect1.drawOnMap();
