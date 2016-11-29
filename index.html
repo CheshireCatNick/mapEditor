@@ -9,26 +9,45 @@
   <style>
     #mapDisplay {
       float: left;
-      border: 1px solid #000000;
+      border: 0px solid #000000;
 
     }
     #controlPanel {
-      border: 1px solid #000000;
-
+      width: 300px;
+      height: 600px;
+      float: right;
+      border: 0px solid #000000;
+      z-index: 100;
+    }
+    #gridLayer {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 0;
     }
     #map {
-
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
     }
 
   </style>
 </head>
 <body>
   <div id="mapDisplay">
+    <canvas id="gridLayer" width="1000" height="600"></canvas>
     <canvas id="map" width="1000" height="600"></canvas>
   </div>
-  <div id="controlPanel">control panel
-  <button type="button" onclick="addRect()">add rect</button>
-
+  <div id="controlPanel">
+    <h3>control panel</h3>
+    <div id="mode-select">
+      <button type="button" onclick="addRect()">edit map</button>
+      <button type="button" onclick="addRect()">set property</button>
+    </div>
+    <div id="test">
+      <button type="button" onclick="addRect()">add rect</button>
+    </div>
 
 
   </div>

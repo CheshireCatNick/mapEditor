@@ -96,12 +96,13 @@ class Rect {
 
   }
 
-  constructor(x, y, mapC, mouse) {
-    this.width = 100;
-    this.height = 100;
+  constructor(gridSize, mapC, mouse) {
+    this.width = gridSize;
+    this.height = gridSize;
+    this.gridSize = gridSize;
     // x, y is the top left corner
-    this.x = x;
-    this.y = y;
+    this.x = 0;
+    this.y = 0;
     this.deltaX = 0;
     this.deltaY = 0;
     this.isMoving = false;
