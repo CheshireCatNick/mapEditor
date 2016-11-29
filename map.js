@@ -17,13 +17,14 @@ function drawGridLine() {
   for (let x = 0; x <= mapW; x += gridSize) {
     mapC.moveTo(x, 0);
     mapC.lineTo(x, mapH);
-    mapC.stroke();
+
   }
   for (let y = 0; y <= mapH; y += gridSize) {
     mapC.moveTo(0, y);
     mapC.lineTo(mapW, y);
-    mapC.stroke();
   }
+  mapC.stroke();
+
 }
 
 function addRect() {
