@@ -15,7 +15,6 @@ const gridSize = 100;
 function drawGridLine() {
   const gridLayer = _('gridLayer');
   const gridLayerC = gridLayer.getContext('2d');
-  gridLayerC.strokeStyle = '#999'
   for (let x = 0; x <= mapW; x += gridSize) {
     gridLayerC.moveTo(x, 0);
     gridLayerC.lineTo(x, mapH);
@@ -24,11 +23,8 @@ function drawGridLine() {
     gridLayerC.moveTo(0, y);
     gridLayerC.lineTo(mapW, y);
   }
+  gridLayerC.strokeStyle = '#999';
   gridLayerC.stroke();
-}
-
-function addRect() {
-  rects.push(new Rect(gridSize, mapC, mouse));
 }
 
 function main() {

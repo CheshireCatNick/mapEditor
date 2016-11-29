@@ -31,7 +31,14 @@
       top: 0;
       z-index: 1;
     }
-
+    #edit-map {
+      display: inline-block;
+      padding-top: 50px;
+    }
+    #set-prop {
+      display: none;
+      padding-top: 50px;
+    }
   </style>
 </head>
 <body>
@@ -42,17 +49,21 @@
   <div id="controlPanel">
     <h3>control panel</h3>
     <div id="mode-select">
-      <button type="button" onclick="addRect()">edit map</button>
-      <button type="button" onclick="addRect()">set property</button>
+      <button type="button" onclick="editMap()">edit map</button>
+      <button type="button" onclick="setProp()">set property</button>
     </div>
-    <div id="test">
+    <div id="edit-map">
       <button type="button" onclick="addRect()">add rect</button>
     </div>
+    <div id="set-prop">
+      name: <input type="text" name="name"><br/>
+      type: <input type="text" name="type"><br/>
 
 
+    </div>
   </div>
 
-
   <script src="./map.js"></script>
+  <script src="./control-panel.js"></script>
 </body>
 </html>

@@ -96,6 +96,21 @@ class Rect {
 
   }
 
+  setProp() {
+
+    
+  }
+  process() {
+    switch (this.mode) {
+      case 'editMap':
+        this.draw(); 
+        break; 
+      case 'setProp':
+        this.setProp(); 
+        break;
+    }
+  }
+
   constructor(gridSize, mapC, mouse) {
     this.width = gridSize;
     this.height = gridSize;
@@ -110,8 +125,8 @@ class Rect {
     this.clickedCorner = 'none';
     this.mapC = mapC;
     this.mouse = mouse;
-    // editting or setting
-    this.mode = 'editting';
+    // editMap or setProp
+    this.mode = 'editMap';
 
 
     
