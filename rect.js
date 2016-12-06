@@ -1,5 +1,11 @@
 "use strict";
 class Rect {
+  roundWithGrid(num) {
+    const count = Math.floor(num / gridSize)
+    const rest = num % gridSize;
+    if (rest < gridSize / 2) return gridSize * count;
+    else return gridSize * (count + 1);
+  }
   isInRange() {
     // range of rect
     let left = this.x;
@@ -12,8 +18,8 @@ class Rect {
   move() {
     // the clicked moment, save deltaX, deltaY
     if (!this.isMoving) {
-      this.deltaX = this.mouse.x - this.x;
-      this.deltaY = this.mouse.y - this.y;
+      this.deltaX = this.mouse.x - this.tmpX;
+      this.deltaY = this.mouse.y - this.tmpY;
     }
     // mouse is pressed in rect range
     if (this.isInRange())
@@ -24,12 +30,14 @@ class Rect {
       }
     // update x, y according to mouse and delta
     if (this.isMoving) {
-      this.x = this.mouse.x - this.deltaX;
-      this.y = this.mouse.y - this.deltaY;
+      this.tmpX = this.mouse.x - this.deltaX;
+      this.tmpY = this.mouse.y - this.deltaY;
+      this.x = this.roundWithGrid(this.tmpX);
+      this.y = this.roundWithGrid(this.tmpY);
     }
   }
   isCloseEnough(a, b) {
-    return Math.abs(a - b) < 10;
+    return Math.abs(a - b) < this.tolerance;
   }
   isClickedCorner() {
     // check if any corner is clicked and update clickedCorner
@@ -59,26 +67,62 @@ class Rect {
     if (this.isResizing)
       switch (this.clickedCorner) {
         case 'tl':
-          this.width += this.x - this.mouse.x;
-          this.height += this.y - this.mouse.y;
-          this.x = this.mouse.x;
-          this.y = this.mouse.y;
+          this.tmpWidth += this.tmpX - this.mouse.x;
+          this.tmpHeight += this.tmpY - this.mouse.y;
+          this.tmpY = this.mouse.y;
+          this.tmpX = this.mouse.x;
+          // undo changes if illegal
+          if (this.tmpHeight < this.gridSize) {
+            this.tmpHeight = this.height;
+            this.tmpY = this.y;
+          }
+          if (this.tmpWidth < this.gridSize) {
+            this.tmpWidth = this.width;
+            this.tmpX = this.x;
+          }
           break;
         case 'tr':
-          this.width = Math.abs(this.x - this.mouse.x);
-          this.height += this.y - this.mouse.y;
-          this.y = this.mouse.y;
+          this.tmpWidth = Math.abs(this.tmpX - this.mouse.x);
+          this.tmpHeight += this.tmpY - this.mouse.y;
+          this.tmpY = this.mouse.y;
+          // undo changes if illegal
+          if (this.tmpHeight < this.gridSize) {
+            this.tmpHeight = this.height;
+            this.tmpY = this.y;    
+          }
+          if (this.tmpWidth < this.gridSize) {
+            this.tmpWidth = this.width;
+          }
           break;
         case 'bl':
-          this.width += this.x - this.mouse.x;
-          this.height = Math.abs(this.y - this.mouse.y);
-          this.x = this.mouse.x;
+          this.tmpWidth += this.tmpX - this.mouse.x;
+          this.tmpHeight = Math.abs(this.tmpY - this.mouse.y);         
+          this.tmpX = this.mouse.x;
+          // undo changes if illegal
+          if (this.tmpHeight < this.gridSize) {
+            this.tmpHeight = this.height;
+          }
+          if (this.tmpWidth < this.gridSize) {
+            this.tmpWidth = this.width;
+            this.tmpX = this.x;
+          }
           break;
         case 'br':
-          this.width = Math.abs(this.x - this.mouse.x);
-          this.height = Math.abs(this.y - this.mouse.y);
+          this.tmpWidth = Math.abs(this.tmpX - this.mouse.x);
+          this.tmpHeight = Math.abs(this.tmpY - this.mouse.y);
+          // undo changes if illegal
+          if (this.tmpHeight < this.gridSize) {
+            this.tmpHeight = this.height;
+          }
+          if (this.tmpWidth < this.gridSize) {
+            this.tmpWidth = this.width;
+          }
           break;
       }
+      this.x = this.roundWithGrid(this.tmpX);
+      this.y = this.roundWithGrid(this.tmpY);
+      this.width = this.roundWithGrid(this.tmpWidth);
+      this.height = this.roundWithGrid(this.tmpHeight);
   }
   draw() {
     if (this.mouse.isPressed) {
@@ -90,10 +134,13 @@ class Rect {
       this.isMoving = false;
       this.isResizing = false;
       this.clickedCorner = 'none';
+      this.tmpWidth = this.width;
+      this.tmpHeight = this.height;
+      this.tmpX = this.x;
+      this.tmpY = this.y;
     }
     this.mapC.fillStyle = '#16a085';
     this.mapC.fillRect(this.x, this.y, this.width, this.height);
-
   }
 
   setProp() {
@@ -115,6 +162,8 @@ class Rect {
     this.width = gridSize;
     this.height = gridSize;
     this.gridSize = gridSize;
+    // close tolerance
+    this.tolerance = 15;
     // x, y is the top left corner
     this.x = 0;
     this.y = 0;
@@ -127,6 +176,11 @@ class Rect {
     this.mouse = mouse;
     // editMap or setProp
     this.mode = 'editMap';
+    // for fixing edge and size
+    this.tmpX = this.x;
+    this.tmpY = this.y;
+    this.tmpWidth = this.width;
+    this.tmpHeight = this.height;
 
 
     
