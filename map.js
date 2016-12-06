@@ -35,7 +35,7 @@ function main() {
     //mapC.fillStyle = 'white';
     //mapC.fillRect(0, 0, mapW, mapH);
     for (let rect of rects)
-      rect.draw();
+      rect.process();
   }, 80);
 }
 

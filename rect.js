@@ -139,11 +139,10 @@ class Rect {
       this.tmpX = this.x;
       this.tmpY = this.y;
     }
-    this.mapC.fillStyle = '#16a085';
-    this.mapC.fillRect(this.x, this.y, this.width, this.height);
+    this.color = '#16a085';
   }
-
   setProp() {
+    this.color = '#e74c3c';
 
     
   }
@@ -156,12 +155,15 @@ class Rect {
         this.setProp(); 
         break;
     }
+    this.mapC.fillStyle = this.color;
+    this.mapC.fillRect(this.x, this.y, this.width, this.height);
   }
 
   constructor(gridSize, mapC, mouse) {
-    this.width = gridSize;
-    this.height = gridSize;
     this.gridSize = gridSize;
+    this.width = this.gridSize;
+    this.height = this.gridSize;
+    this.color = '#16a085';
     // close tolerance
     this.tolerance = 15;
     // x, y is the top left corner
