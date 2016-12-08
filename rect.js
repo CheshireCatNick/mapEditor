@@ -124,7 +124,23 @@ class Rect {
       this.width = this.roundWithGrid(this.tmpWidth);
       this.height = this.roundWithGrid(this.tmpHeight);
   }
-  draw() {
+  drawRect() {
+    this.mapC.fillStyle = this.color;
+    this.mapC.fillRect(this.x, this.y, this.width, this.height);
+  }
+  drawHandle() {
+    this.drawCircle(this.x, this.y);
+    this.drawCircle(this.x + this.width, this.y);
+    this.drawCircle(this.x, this.y + this.height);
+    this.drawCircle(this.x + this.width, this.y + this.height);
+  }
+  drawCircle(x, y) {
+    this.mapC.fillStyle = this.handleColor;
+    this.mapC.beginPath();
+    this.mapC.arc(x, y, this.tolerance, 0, 2 * Math.PI);
+    this.mapC.fill();
+  }
+  editMap() {
     if (this.mouse.isPressed) {
       this.resize();
       this.move();
@@ -140,23 +156,23 @@ class Rect {
       this.tmpY = this.y;
     }
     this.color = '#16a085';
+    this.drawRect();
+    this.drawHandle();
   }
   setProp() {
     this.color = '#e74c3c';
-
+    this.drawRect();
     
   }
   process() {
     switch (this.mode) {
       case 'editMap':
-        this.draw(); 
+        this.editMap();
         break; 
       case 'setProp':
         this.setProp(); 
         break;
     }
-    this.mapC.fillStyle = this.color;
-    this.mapC.fillRect(this.x, this.y, this.width, this.height);
   }
 
   constructor(gridSize, mapC, mouse) {
@@ -164,6 +180,7 @@ class Rect {
     this.width = this.gridSize;
     this.height = this.gridSize;
     this.color = '#16a085';
+    this.handleColor = '#34495e';
     // close tolerance
     this.tolerance = 15;
     // x, y is the top left corner
