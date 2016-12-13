@@ -6,6 +6,7 @@
   <script src="./basic.js"></script>
   <script src="./mouse.js"></script>
   <script src="./rect.js"></script>
+  <script src="./person.js"></script>
   <style>
     #mapDisplay {
       float: left;
@@ -56,9 +57,13 @@
       <button type="button" onclick="addRect()">add rect</button>
     </div>
     <div id="set-prop">
-      name: <input type="text" name="name"><br/>
-      type: <input type="text" name="type"><br/>
+      name: <input id="name-input" type="text" name="name"><br/>
+      type: <input id="type-input" type="text" name="type"><br/>
 
+
+    </div>
+    <div id="user-info">
+      <ul id="user-list"></ul>
 
     </div>
   </div>

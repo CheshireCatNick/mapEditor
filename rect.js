@@ -127,6 +127,11 @@ class Rect {
   drawRect() {
     this.mapC.fillStyle = this.color;
     this.mapC.fillRect(this.x, this.y, this.width, this.height);
+    this.mapC.font = '30px Arial';
+    this.mapC.fillStyle = 'black';
+    this.mapC.textAlign="center";
+    this.mapC.fillText(this.name, this.x + this.width / 2, 
+                        this.y + this.height / 2);
   }
   drawHandle() {
     this.drawCircle(this.x, this.y);
@@ -155,14 +160,25 @@ class Rect {
       this.tmpX = this.x;
       this.tmpY = this.y;
     }
-    this.color = '#16a085';
+    this.color = Rect.Color.editMap;
     this.drawRect();
     this.drawHandle();
   }
   setProp() {
-    this.color = '#e74c3c';
+    if (this.mouse.isPressed)
+      if (this.isInRange()) {
+        this.isSelected = true;
+        _('name-input').value = this.name;
+        _('type-input').value = this.type;
+      }
+      else this.isSelected = false;
+    if (this.isSelected) {
+      this.color = Rect.Color.selected;
+      this.name = _('name-input').value;
+      this.type = _('type-input').value;
+    }
+    else this.color = Rect.Color.notSelected;
     this.drawRect();
-    
   }
   process() {
     switch (this.mode) {
@@ -179,8 +195,8 @@ class Rect {
     this.gridSize = gridSize;
     this.width = this.gridSize;
     this.height = this.gridSize;
-    this.color = '#16a085';
-    this.handleColor = '#34495e';
+    this.color = Rect.Color.editMap;
+    this.handleColor = Rect.Color.handle;
     // close tolerance
     this.tolerance = 15;
     // x, y is the top left corner
@@ -190,6 +206,7 @@ class Rect {
     this.deltaY = 0;
     this.isMoving = false;
     this.isResizing = false;
+    this.isSelected = false;
     this.clickedCorner = 'none';
     this.mapC = mapC;
     this.mouse = mouse;
@@ -200,8 +217,17 @@ class Rect {
     this.tmpY = this.y;
     this.tmpWidth = this.width;
     this.tmpHeight = this.height;
+    // hard-coded property
+    this.name = '';
+    this.type = '';
 
 
     
   }
 }
+Rect.Color = {
+  editMap: 'rgba(46, 204, 113, 0.6)',
+  selected: 'rgba(243, 156, 18, 0.6)',
+  notSelected: 'rgba(52, 152, 219, 0.6)',
+  handle: 'rgba(52, 73, 94, 0.6)'
+};
