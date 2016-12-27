@@ -13,6 +13,8 @@ const rects = [];
 const people = [];
 
 const gridSize = 30;
+let rectID = 0;
+
 function drawGridLine() {
   const gridLayer = _('gridLayer');
   const gridLayerC = gridLayer.getContext('2d');

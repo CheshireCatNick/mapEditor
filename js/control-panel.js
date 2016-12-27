@@ -4,8 +4,9 @@
 function addRect() {
   for (let rect of rects)
     rect.mode = 'editMap';
-  rects.push(new Rect(rects.length, gridSize, 
+  rects.push(new Rect(rectID, gridSize, 
                       mapC, mouse, rects));
+  rectID++;
 }
 function deleteRect() {
   for (let rect of rects)
