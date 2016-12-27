@@ -7,12 +7,11 @@ const mapW = mapRect.width;
 const mapL = mapRect.left;
 const mapT = mapRect.top;
 
-const mouse = new Mouse(map);
+// const mouse = new Mouse(map);
 
 const rects = [];
 const people = [];
 
-const gridSize = 30;
 function drawGridLine() {
   const gridLayer = _('gridLayer');
   const gridLayerC = gridLayer.getContext('2d');
@@ -28,8 +27,13 @@ function drawGridLine() {
   gridLayerC.stroke();
 }
 
+function makeRects() {
+  for (let rect of rectData)
+    rects.push(new Rect(gridSize, mapC, rect));
+}
 function main() {
   drawGridLine();
+  makeRects();
   // new some people
   for (let i = 0; i < 10; i++)
     people.push(new Person(mapC, i));
@@ -41,11 +45,12 @@ function main() {
     //mapC.fillStyle = 'white';
     //mapC.fillRect(0, 0, mapW, mapH);
     for (let rect of rects)
-      rect.process();
+      rect.drawRect();
     for (let person of people)
       person.draw();
 
   }, 30);
+  /*
   setInterval(() => {
     _('user-list').innerHTML = '';
     for (let person of people) {
@@ -54,6 +59,7 @@ function main() {
       _('user-list').innerHTML += code;
     }
   }, 3000);
+  */
 }
 
 main();

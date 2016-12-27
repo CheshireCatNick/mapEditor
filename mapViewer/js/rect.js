@@ -1,5 +1,6 @@
 "use strict";
 class Rect {
+  /*
   roundWithGrid(num) {
     const count = Math.floor(num / gridSize)
     const rest = num % gridSize;
@@ -124,15 +125,7 @@ class Rect {
       this.width = this.roundWithGrid(this.tmpWidth);
       this.height = this.roundWithGrid(this.tmpHeight);
   }
-  drawRect() {
-    this.mapC.fillStyle = this.color;
-    this.mapC.fillRect(this.x, this.y, this.width, this.height);
-    this.mapC.font = '30px Arial';
-    this.mapC.fillStyle = 'black';
-    this.mapC.textAlign="center";
-    this.mapC.fillText(this.name, this.x + this.width / 2, 
-                        this.y + this.height / 2);
-  }
+
   drawHandle() {
     this.drawCircle(this.x, this.y);
     this.drawCircle(this.x + this.width, this.y);
@@ -190,39 +183,28 @@ class Rect {
         break;
     }
   }
-
-  constructor(gridSize, mapC, mouse) {
+  */
+  drawRect() {
+    this.mapC.fillStyle = this.color;
+    this.mapC.fillRect(this.x, this.y, this.width, this.height);
+    this.mapC.font = '30px Arial';
+    this.mapC.fillStyle = 'black';
+    this.mapC.textAlign="center";
+    this.mapC.fillText(this.name, this.x + this.width / 2, 
+                        this.y + this.height / 2);
+  }
+  constructor(gridSize, mapC, rect) {
     this.gridSize = gridSize;
-    this.width = this.gridSize;
-    this.height = this.gridSize;
+    this.width = rect.width;
+    this.height = rect.height;
     this.color = Rect.Color.editMap;
-    this.handleColor = Rect.Color.handle;
-    // close tolerance
-    this.tolerance = 15;
     // x, y is the top left corner
-    this.x = 0;
-    this.y = 0;
-    this.deltaX = 0;
-    this.deltaY = 0;
-    this.isMoving = false;
-    this.isResizing = false;
-    this.isSelected = false;
-    this.clickedCorner = 'none';
+    this.x = rect.x;
+    this.y = rect.y;
     this.mapC = mapC;
-    this.mouse = mouse;
-    // editMap or setProp
-    this.mode = 'editMap';
-    // for fixing edge and size
-    this.tmpX = this.x;
-    this.tmpY = this.y;
-    this.tmpWidth = this.width;
-    this.tmpHeight = this.height;
     // hard-coded property
-    this.name = '';
-    this.type = '';
-
-
-    
+    this.name = rect.name;
+    this.type = rect.type;
   }
 }
 Rect.Color = {

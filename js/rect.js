@@ -205,6 +205,20 @@ class Rect {
         break;
     }
   }
+  toString() {
+    let x = this.roundWithGrid(this.x);
+    let y = this.roundWithGrid(this.y);
+
+    console.log(`{ 
+  id: ${this.id},
+  name: "${this.name}", 
+  type: "${this.type}", 
+  x: ${x}, 
+  y: ${y},
+  height: ${this.height},
+  width: ${this.width}
+},`);
+  }
 
   constructor(id, gridSize, mapC, mouse, rects) {
     this.id = id;

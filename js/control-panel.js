@@ -26,3 +26,7 @@ function setProp() {
   _('set-prop').style.display = 'inline-block';
   _('edit-map').style.display = 'none';
 }
+function exportData() {
+  for (let rect of rects)
+    rect.toString();
+}
